@@ -1,6 +1,6 @@
 const express = require("express");
 const { upload } = require("../../middleware/files.middleware");
-const { isAuth } = require('../../middleware/auth.middleware')
+const { isAuth } = require("../../middleware/auth.middleware");
 
 const {
   getAllRadioheadAlbums,
@@ -11,7 +11,12 @@ const {
 const RadioheadRoutes = express.Router();
 
 RadioheadRoutes.get("/", [isAuth], getAllRadioheadAlbums);
-RadioheadRoutes.post("/", upload.single("poster"), createRadioheadAlbum)
+RadioheadRoutes.post(
+  "/",
+  [isAuth],
+  upload.single("poster"),
+  createRadioheadAlbum
+);
 RadioheadRoutes.patch("/:id", upload.single("poster"), updateAlbumByID);
 
 module.exports = RadioheadRoutes;
